@@ -92,7 +92,6 @@ if __name__ == "__main__":
     
     print(f"{colors.OKGREEN}[+] Scan Started Successfuly.{colors.ENDC}")
 
-
     # it = 0
 
     # while True:
