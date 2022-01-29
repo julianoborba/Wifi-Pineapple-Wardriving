@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 import json
 
 app = Flask(__name__)
@@ -10,7 +11,13 @@ log.setLevel(logging.ERROR)
 
 @app.route("/map")
 def mapReq():
-    return "ok"
+    f = open("wardrive.json")
+
+    reconData = json.load(f)
+    
+    f.close()
+
+    return render_template('map.html', data=reconData)
 
 @app.route("/gps/<pos>")
 def saveGPS(pos):
@@ -24,44 +31,7 @@ def saveGPS(pos):
 
 @app.route('/')
 def hello_world():
-    return """
-    <!DOCTYPE html>
-<html>
-<body>
-
-<p id="demo"></p>
-
-<script>
-
-var x = document.getElementById("demo");
-
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
-  sendData(position);
-}
-
-function error() {
-    x.innerHTML = "error";
-}
-
-function sendData(position) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', `/gps/${position.coords.latitude},${position.coords.longitude}`, true);
-
-    xhr.onload = function () {
-    };
-
-    xhr.send(null);
-}
-
-navigator.geolocation.watchPosition(showPosition, error, {enableHighAccuracy:true});
-</script>
-
-</body>
-</html>
+    return render_template('index.html')
 
 
-    """
-
-app.run(host="0.0.0.0", debug=False, port=8000, ssl_context=('cert.pem', 'key.pem'))
+app.run(host="0.0.0.0", debug=True, port=8000, ssl_context=('cert.pem', 'key.pem'))
