@@ -8,6 +8,10 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+@app.route("/map")
+def mapReq():
+    return "ok"
+
 @app.route("/gps/<pos>")
 def saveGPS(pos):
 
@@ -28,6 +32,7 @@ def hello_world():
 <p id="demo"></p>
 
 <script>
+
 var x = document.getElementById("demo");
 
 function showPosition(position) {

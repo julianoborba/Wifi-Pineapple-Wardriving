@@ -63,7 +63,12 @@ class Recon:
             for i in range(len(results["APResults"])):
                 ssid = results["APResults"][i]["ssid"]
                 bssid = results["APResults"][i]["bssid"]
-                encryption = self.securityMasks[str(results["APResults"][i]["encryption"])]
+
+                if str(results["APResults"][i]["encryption"]) in self.securityMasks:
+                    encryption = self.securityMasks[str(results["APResults"][i]["encryption"])]
+                else:
+                    encryption = "Unknown"
+                
                 isHidden = bool(results["APResults"][i]["hidden"])
                 isWPS = bool(results["APResults"][i]["wps"])
                 channel = results["APResults"][i]["channel"]
