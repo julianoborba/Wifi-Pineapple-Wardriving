@@ -1,3 +1,4 @@
+from ast import Try
 import re
 import requests
 import json
@@ -14,7 +15,10 @@ class auth:
             "password": self.password
         }
 
-        req = requests.post(f"{self.url}/api/login", json=payload)
+        try:
+            req = requests.post(f"{self.url}/api/login", json=payload, timeout=10)
+        except Exception as e:
+            return False, "Connection Error"
 
         response = json.loads(req.text)
 

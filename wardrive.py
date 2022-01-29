@@ -1,9 +1,10 @@
 import argparse
-from Recon import Recon
+from recon import Recon
 
 from auth import auth
 import sys
 
+import json
 import time
 
 parser = argparse.ArgumentParser(description="Wardriving software for Wifi pineapple")
@@ -55,6 +56,8 @@ banner = r"""
 ----------------------------------------------------| |-- | |-----------------
                                                     |_|   |_|  
 
+* Rembmer to start the webserver
+
 """
 
 if __name__ == "__main__":
@@ -81,7 +84,6 @@ if __name__ == "__main__":
     
     print(f"{colors.OKGREEN}[+] Authentication Successful.{colors.ENDC}")
 
-
     reconHandler = Recon(token, band, url)
 
     status, scanID = reconHandler.startScan()
@@ -92,20 +94,30 @@ if __name__ == "__main__":
     
     print(f"{colors.OKGREEN}[+] Scan Started Successfuly.{colors.ENDC}")
 
-    # it = 0
+    wardriveData = {}
 
-    # while True:
-    #     if it == 120:
-    #         break
-        
-    #     time.sleep(1)
+    while True:
+        time.sleep(1)
 
-    #     status, scanResults = reconHandler.getResults(scanID)
+        status, scanResults = reconHandler.newAPS(scanID)
 
-    #     if status and scanResults != None:
-    #         print(scanResults)
-        
-    #     it += 1
+        if status:
+            f = open("location.json")
+
+            location = json.load(f)
+
+            f.close()
+
+            formated = f"{location['latitude']}, {location['longitude']}"
+
+            if formated in wardriveData:
+                for i in scanResults:
+                    wardriveData[formated].append(i)
+            else:
+                wardriveData[formated] = scanResults
+
+            with open("wardrive.json", "w") as wardrive:
+                json.dump(wardriveData, wardrive)
 
     if reconHandler.stopScan():
         print(f"{colors.OKGREEN}[*] Scan Stopped Successfuly.{colors.ENDC}")
