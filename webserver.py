@@ -9,16 +9,6 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-@app.route("/map")
-def mapReq():
-    f = open("wardrive.json")
-
-    reconData = json.load(f)
-    
-    f.close()
-
-    return render_template('map.html', data=reconData)
-
 @app.route("/gps/<pos>")
 def saveGPS(pos):
 

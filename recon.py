@@ -13,8 +13,12 @@ class Recon:
         }
 
         self.securityMasks = {
+            "17845315": "WPA Mixed PSK (CCMP)",
+            "16811010": "WPA2 Enterprise (CCMP)",
             "16794626": "WPA2 PSK (CCMP)",
             "8932963": "WPA Mixed PSK (CCMP TKIP)",
+            "8422914": "WPA2 Enterprise (CCMP TKIP)",
+            "526433": "WPA PSK (CCMP TKIP)",
             "0": "No Security"
         }
 

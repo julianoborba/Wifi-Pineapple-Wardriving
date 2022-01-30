@@ -7,6 +7,8 @@ import sys
 import json
 import time
 
+import simplekml
+
 parser = argparse.ArgumentParser(description="Wardriving software for Wifi pineapple")
 
 parser.add_argument("-H", "--host", type=str, metavar='', help="IP of the wifi pineapple service")
@@ -97,32 +99,49 @@ if __name__ == "__main__":
     wardriveData = {}
 
     while True:
-        time.sleep(1)
+        try:
+            time.sleep(1)
 
-        status, scanResults = reconHandler.newAPS(scanID)
+            status, scanResults = reconHandler.newAPS(scanID)
 
-        if status:
-            f = open("location.json")
+            if status:
+                f = open("location.json")
 
-            location = json.load(f)
+                location = json.load(f)
 
-            f.close()
+                f.close()
 
-            formated = f"{location['latitude']}, {location['longitude']}"
+                formated = f"{location['latitude']}, {location['longitude']}"
 
-            if formated in wardriveData:
-                for i in scanResults:
-                    wardriveData[formated].append(i)
+                if formated in wardriveData:
+                    for i in scanResults:
+                        wardriveData[formated].append(i)
+                else:
+                    wardriveData[formated] = scanResults
+
+                kml=simplekml.Kml()
+
+                for key in wardriveData:
+                    it = 0.0000001
+
+                    for item in wardriveData[key]:
+                            lat = float(key.split(", ")[0])
+                            long = float(key.split(", ")[1])
+
+
+                            clat = (lat) + (lat * it) / lat
+                            clong = (long) + (long * it) / long
+
+                            descp = f"bssid: {item[1]}\nchannel: {item[2]}\nSignal Strength: {item[3]}dBi\nSecurity: {item[4]}\nisHidden: {item[5]}\nWPS: {item[6]}"
+
+                            kml.newpoint(name=item[0], description=descp, coords=[(clong,clat)])
+
+                            it += 0.000001
+                kml.save('wardriveData.kml')
+        except KeyboardInterrupt as e:
+            if reconHandler.stopScan():
+                print(f"{colors.OKGREEN}[*] Scan Stopped Successfuly.{colors.ENDC}")
+                break
             else:
-                wardriveData[formated] = scanResults
-
-            with open("wardrive.json", "w") as wardrive:
-                json.dump(wardriveData, wardrive)
-
-    if reconHandler.stopScan():
-        print(f"{colors.OKGREEN}[*] Scan Stopped Successfuly.{colors.ENDC}")
-    else:
-        print(f"{colors.FAIL}[-] Scan Failed to Stop.{colors.ENDC}")
-        sys.exit()
-    
-    
+                print(f"{colors.FAIL}[-] Scan Failed to Stop.{colors.ENDC}")
+                sys.exit()
