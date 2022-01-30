@@ -4,8 +4,6 @@
 
 <p id="demo"></p>
 
-<button onclick="openMap();">Open Map</button>
-
 <script>
 
 var x = document.getElementById("demo");
@@ -30,13 +28,6 @@ function sendData(position) {
     xhr.send(null);
 }
 
-function openMap() {
-  if ((window.navigator.onLine ? 'on' : 'off') === "on") {
-    window.location = `/map`
-  } else {
-    x.innerHTML = "Can't open map, no internet connection"
-  }
-}
 
 navigator.geolocation.watchPosition(showPosition, error, {enableHighAccuracy:true});
 </script>
