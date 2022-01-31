@@ -3,6 +3,10 @@
 
 A Tool for wardriving with the Wifi Pineapple using iOS or Android, Data is exported to kml format so it can be loaded to google maps and such.
 
+## Why?
+
+Ever wanted to go wardriving with the WiFi pineapple but you didn't want to buy a gps receiver? or you have iOS? why not use your phone's gps receiver?
+
 ## Demo
 
 Insert gif or link to demo
