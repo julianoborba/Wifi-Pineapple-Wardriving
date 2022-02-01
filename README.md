@@ -49,7 +49,7 @@ The program collect the following data all from the Wifi Pineapple api.
 Installation is done in the Wifi Pineapple
 
 ```bash
-  git clone https://github.com/ozzzozo/wardriving.git
+  git clone https://github.com/ozzzozo/Wifi-Pineapple-Wardriving.git
   cd wardriving
   pip install -r requirements.txt
 ```
