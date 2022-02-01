@@ -7,11 +7,6 @@ A Tool for wardriving with the Wifi Pineapple using iOS or Android, Data is expo
 
 Ever wanted to go wardriving with the WiFi pineapple but you didn't want to buy a gps receiver? or you have iOS? why not use your phone's gps receiver?
 
-## Demo
-
-Insert gif or link to demo
-
-
 ## FAQ
 
 #### How do I use it?
@@ -25,7 +20,9 @@ once your mobile device is connected to the WiFi pineapple's managment AP you na
 
 #### How do I stop it?
 
-You can just stop the files with ctrl+c, the pineapple scan will be stopped automatically and the wardriving data will be saved to wardriveData.kml
+You can just stop the files with ctrl+c, the pineapple scan will be stopped automatically and the wardriving data will be saved to wardriveData.kml.
+
+or kill the process and stop the scan manually.
 
 #### Do I need internet connection for it?
 
