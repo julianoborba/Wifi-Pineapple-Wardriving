@@ -70,4 +70,4 @@ you can also run `python3 wardrive.py -h` for more details and options.
 
 ## Note
 
-This program was tested on the Wifi Pineapple MK7 with Firmware v1.1.0
+This program was tested on the Wifi Pineapple MK7 with Firmware v1.1.1
