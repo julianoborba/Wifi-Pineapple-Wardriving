@@ -18,6 +18,8 @@ webserver.py  which is responsible for the web server that you connect to from y
 
 once your mobile device is connected to the WiFi pineapple's managment AP you navigate to https://pineappleIP:8000/ from your phone and allow location tracking.
 
+**you must run the webserver and get data before running the scan**
+
 #### How do I stop it?
 
 You can just stop the files with ctrl+c, the pineapple scan will be stopped automatically and the wardriving data will be saved to wardriveData.kml.
